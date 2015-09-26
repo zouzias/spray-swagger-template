@@ -1,4 +1,4 @@
-package org.zouzias.spray.actors
+package org.zouzias.spray.httpservices
 
 import com.wordnik.swagger.annotations._
 import spray.routing.HttpService

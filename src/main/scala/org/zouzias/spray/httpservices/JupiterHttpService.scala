@@ -1,4 +1,4 @@
-package org.zouzias.spray.actors
+package org.zouzias.spray.httpservices
 
 import javax.ws.rs.Path
 

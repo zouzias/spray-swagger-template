@@ -2,7 +2,8 @@ package org.zouzias.spray.actors.swagger
 
 import com.gettyimages.spray.swagger.SwaggerHttpService
 import com.wordnik.swagger.model.ApiInfo
-import org.zouzias.spray.actors.{MarsHttpService, JupiterHttpService, JupiterActor}
+import org.zouzias.spray.actors.JupiterActor
+import org.zouzias.spray.httpservices.{JupiterHttpService, MarsHttpService, PetHttpService}
 import spray.routing.HttpServiceActor
 import scala.reflect.runtime.universe.typeOf
 
@@ -12,7 +13,7 @@ import scala.reflect.runtime.universe.typeOf
 class SwaggerActor extends HttpServiceActor {
 
   val swaggerService = new SwaggerHttpService {
-    override def apiTypes = Seq(typeOf[JupiterHttpService], typeOf[MarsHttpService])
+    override def apiTypes = Seq(typeOf[PetHttpService], typeOf[JupiterHttpService], typeOf[MarsHttpService])
     override def apiVersion = "2.0"
     override def baseUrl = "/" // let swagger-ui determine the host and port
     override def docsPath = "api-docs"
