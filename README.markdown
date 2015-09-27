@@ -30,5 +30,3 @@ Follow these steps to get started:
 
 
 Learn more at http://www.spray.io/
-
-9. Start hacking on `src/main/scala/com/example/MyService.scala`
