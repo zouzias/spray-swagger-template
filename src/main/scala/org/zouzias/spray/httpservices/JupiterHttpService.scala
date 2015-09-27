@@ -2,6 +2,8 @@ package org.zouzias.spray.httpservices
 
 import javax.ws.rs.Path
 
+import javax.ws.rs.Path
+
 import com.wordnik.swagger.annotations._
 import spray.routing.HttpService
 
