@@ -1,6 +1,6 @@
 ## _spray_ Swagger Template
 
-This projects provides a starting point for your own spray REST api with Swagger documentation.
+This projects provides a starting point for your own spray REST api with [Swagger](http://swagger.io) documentation.
 
 The following REST endpoints have been implemented:
 
