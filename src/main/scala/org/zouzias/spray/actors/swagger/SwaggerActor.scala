@@ -8,7 +8,11 @@ import spray.routing.HttpServiceActor
 import scala.reflect.runtime.universe.typeOf
 
 /**
- * Swagger service actor
+ * Swagger HTTP Service actor. It is responsible for handling all HTTP requests to Swagger ui.
+ * It forwards all requests to swagger-ui.
+ *
+ *
+ *
  */
 class SwaggerActor extends HttpServiceActor {
 
@@ -23,6 +27,7 @@ class SwaggerActor extends HttpServiceActor {
     //authorizations, not used
   }
 
+
   def receive = runRoute(swaggerService.routes ~
     get {
     pathPrefix("") { pathEndOrSingleSlash {
@@ -31,7 +36,4 @@ class SwaggerActor extends HttpServiceActor {
     } ~
       getFromResourceDirectory("swagger-ui")
   })
-
-
-
 }

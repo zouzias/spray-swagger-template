@@ -1,18 +1,33 @@
 package org.zouzias.spray.httpservices
 
+import javax.ws.rs.Path
+
 import com.wordnik.swagger.annotations._
 import spray.routing.HttpService
 
 
-
-@Api(value="/mars/hello", description = "Operations about Mars.", produces="text/plain", position = 1)
+/**
+ * A simple example where
+ *
+ */
+@Api(value="/mars", description = "Operations about Mars.", position = 1)
 trait MarsHttpService extends HttpService{
 
-  val routes = hi ~ hello
+  val routes = hello ~ hi
 
-  @ApiOperation(value = "Return hello someone from Mars", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "hiJupiter", httpMethod = "GET")
+  @Path("/hello/{name}") // Path is required for swagger scanning
+  @ApiOperation(value = "Return hello someone from Mars",
+                notes = "",
+                response=classOf[String],
+                produces="text/plain; charset=UTF-8",
+                nickname = "mars",
+                httpMethod = "GET")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "name", value = "Name of astronaut", required = true, dataType = "string", paramType = "path")
+    new ApiImplicitParam( name = "name",
+                          value = "Name of astronaut",
+                          required = true,
+                          dataType = "string",
+                          paramType = "path")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Mars cannot say hello.")
@@ -25,7 +40,13 @@ trait MarsHttpService extends HttpService{
     }
   }
 
-  @ApiOperation(value = "Return hello from Mars again", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "helloJupiter", httpMethod = "GET")
+  @Path("/hello")   // Path is required for swagger scanning
+  @ApiOperation(value = "Return hello from Mars again",
+                notes = "",
+                response=classOf[String],
+                produces="text/plain; charset=UTF-8",
+                nickname = "mars",
+                httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Mars cannot say hello.")
   ))

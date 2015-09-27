@@ -11,8 +11,8 @@ trait JupiterHttpService extends HttpService{
 
   val routes = hi ~ hello
 
-  @Path("/hi/{name}")
-  @ApiOperation(value = "Return hello from Jupiter", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "hiJupiter", httpMethod = "GET")
+  @Path("/hi/{name}") // Path is required for swagger scanning
+  @ApiOperation(value = "Return hello from Jupiter", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "jupiter",  httpMethod = "GET")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(name = "name", value = "Name of astronaut", required = true, dataType = "string", paramType = "path")
   ))
@@ -27,8 +27,8 @@ trait JupiterHttpService extends HttpService{
     }
   }
 
-  @Path("/hello")
-  @ApiOperation(value = "Return hello from Jupiter again", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "helloJupiter", httpMethod = "GET")
+  @Path("/hello") // Path is required for swagger scanning
+  @ApiOperation(value = "Return hello from Jupiter again", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "jupiter", httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Jupiter cannot say hello.")
   ))

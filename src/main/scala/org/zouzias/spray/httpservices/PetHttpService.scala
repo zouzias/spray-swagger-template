@@ -23,7 +23,7 @@ import spray.httpx.marshalling._
 trait PetHttpService extends HttpService {
 
 
-  val routes = readRoute ~ updateRoute ~ deleteRoute ~ addRoute ~ searchRoute ~ findByTags ~ readRouteForNestedResource
+  val routes = readRoute ~ updateRoute ~ deleteRoute ~ addRoute ~ findByTags ~ readRouteForNestedResource
 
 
   // Path is required for swagger to read the correct route
@@ -34,7 +34,8 @@ trait PetHttpService extends HttpService {
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Pet not found"),
-    new ApiResponse(code = 400, message = "Invalid ID supplied")
+    new ApiResponse(code = 400, message = "Invalid ID supplied"),
+    new ApiResponse(code = 200, message = "OK", response= classOf[Pet])
   ))
   def readRoute = get {
     path("id" / IntNumber) { id =>
@@ -51,7 +52,7 @@ trait PetHttpService extends HttpService {
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Dictionary does not exist."),
-    new ApiResponse(code = 200, message = "Added new pet.", response = classOf[String])
+    new ApiResponse(code = 200, message = "Added new pet.", response = classOf[UpdateResponse])
   ))
   def updateRoute = post {
     path("update" / Segment) { id => {
@@ -68,13 +69,14 @@ trait PetHttpService extends HttpService {
     new ApiImplicitParam(name = "petId", value = "Pet id to delete", required = true, dataType = "integer", paramType = "path")
   ))
   @ApiResponses(Array(
-    new ApiResponse(code = 400, message = "Invalid pet value")
+    new ApiResponse(code = 400, message = "Invalid pet value", response = classOf[String]),
+  new ApiResponse(code = 200, message = "OK", response= classOf[DeleteResponse])
   ))
   def deleteRoute = delete {
-      path("delete" / IntNumber) {
-        id => { ctx => ctx.complete(DeleteResponse(id, "Successfully deleted..."))
-        }
+    path("delete" / IntNumber) {
+      id => { ctx => ctx.complete(DeleteResponse(id, "Successfully deleted..."))
       }
+    }
   }
 
   @Path("/new")
@@ -84,7 +86,7 @@ trait PetHttpService extends HttpService {
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 405, message = "Invalid input"),
-    new ApiResponse(code = 200, message = "All good")
+    new ApiResponse(code = 200, message = "All good", response = classOf[Pet])
   ))
   def addRoute = post {
     path("new") {
@@ -94,32 +96,30 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/search")
-  @ApiOperation(value = "Searches for a pet", nickname = "searchPet", httpMethod = "GET", produces = "application/json, application/xml")
-  def searchRoute = get {
-    path("search") {
-      complete(Pet(1, "Costas"))
-    }
-  }
-
   @Path("/findByTags")
   @ApiOperation(value = "Find Pets by Tags", httpMethod = "GET", nickname = "findPetsByTags")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(name = "petId", value = "Tags to filter by", required = true, dataType = "string", paramType = "query", allowMultiple = true)
   ))
+  @ApiResponses(Array(
+    new ApiResponse(code = 200, message = "OK", response = classOf[Pet])
+  ))
   def findByTags = get {
     path("findByTags") { parameters("petId")
-      { petId =>
-        complete(Pet(petId.toInt, "First of DB"))
-      }
+    { petId =>
+      complete(Pet(petId.toInt, "First of DB"))
+    }
     }
   }
 
   @Path("/friends/{petId}/{friendId}")
-  @ApiOperation(value = "Find Pet's friend by friendId", httpMethod = "GET", nickname = "findPetsFriendById", response = classOf[Pet])
+  @ApiOperation(value = "Find Pet's friend by friendId", httpMethod = "GET", nickname = "findPetsFriendById")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(name = "petId", value = "Pet id of the pet whose friend needs to be fetched", required = true, dataType = "string", paramType = "path"),
     new ApiImplicitParam(name = "friendId", value = "Id of the friend that needs to be fetched", required = true, dataType = "string", paramType = "path")
+  ))
+  @ApiResponses(Array(
+    new ApiResponse(code = 200, message = "OK", response = classOf[Pet])
   ))
   def readRouteForNestedResource = get {
     path("friends" / Segment / Segment) {
