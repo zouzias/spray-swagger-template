@@ -1,19 +1,17 @@
 package org.zouzias.spray.actors
 
 import akka.actor.{ActorRefFactory, ActorLogging}
-import org.zouzias.spray.httpservices.MarsHttpService
+import org.zouzias.spray.httpservices.PetHttpService
 import spray.routing.HttpServiceActor
 
-
 /**
- * Handle all REST queries
+ * Created by zouzias on 26/09/15.
  */
-class MarsACtor extends HttpServiceActor with ActorLogging{
+class PetActor extends HttpServiceActor with ActorLogging{
 
-  lazy val service = new MarsHttpService{
+  lazy val service = new PetHttpService {
     override implicit def actorRefFactory: ActorRefFactory = context
   }
 
   def receive = runRoute(service.routes)
-
 }
