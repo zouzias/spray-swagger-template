@@ -11,8 +11,6 @@ import scala.reflect.runtime.universe.typeOf
  * Swagger HTTP Service actor. It is responsible for handling all HTTP requests to Swagger ui.
  * It forwards all requests to swagger-ui.
  *
- *
- *
  */
 class SwaggerActor extends HttpServiceActor {
 
@@ -27,13 +25,13 @@ class SwaggerActor extends HttpServiceActor {
     //authorizations, not used
   }
 
-
   def receive = runRoute(swaggerService.routes ~
     get {
-    pathPrefix("") { pathEndOrSingleSlash {
-      getFromResource("swagger-ui/index.html")
-    }
-    } ~
-      getFromResourceDirectory("swagger-ui")
-  })
+      pathPrefix("") {
+        pathEndOrSingleSlash {
+          getFromResource("swagger-ui/index.html")
+        }
+      } ~
+        getFromResourceDirectory("swagger-ui")
+    })
 }

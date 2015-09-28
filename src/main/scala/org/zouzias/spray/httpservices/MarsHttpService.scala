@@ -7,7 +7,7 @@ import spray.routing.HttpService
 
 
 /**
- * A simple example where
+ * A simple REST API endpoint
  *
  */
 @Api(value="/mars", description = "Operations about Mars.", position = 1)
@@ -42,7 +42,7 @@ trait MarsHttpService extends HttpService{
 
   @Path("/hello")   // Path is required for swagger scanning
   @ApiOperation(value = "Return hello from Mars again",
-                notes = "",
+                notes = "No notes here",
                 response=classOf[String],
                 produces="text/plain; charset=UTF-8",
                 nickname = "mars",

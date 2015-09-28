@@ -5,9 +5,6 @@ import org.zouzias.spray.httpservices.MarsHttpService
 import spray.routing.HttpServiceActor
 
 
-/**
- * Handle all REST queries
- */
 class MarsACtor extends HttpServiceActor with ActorLogging{
 
   lazy val service = new MarsHttpService{
@@ -15,5 +12,4 @@ class MarsACtor extends HttpServiceActor with ActorLogging{
   }
 
   def receive = runRoute(service.routes)
-
 }

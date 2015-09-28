@@ -3,7 +3,7 @@ package org.zouzias.spray.models.responses
 import spray.json.DefaultJsonProtocol
 
 /**
- * Created by zouzias on 26/09/15.
+ * Update Response model
  */
 case class UpdateResponse(name : String, status : String, message: String)
 

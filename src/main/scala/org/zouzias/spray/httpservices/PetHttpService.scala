@@ -17,20 +17,23 @@ import spray.httpx.SprayJsonSupport._
 import spray.httpx.unmarshalling._
 import spray.httpx.marshalling._
 
-
-
 @Api(value = "/pet", description = "Operations about pets.", position = 0)
 trait PetHttpService extends HttpService {
 
-
   val routes = readRoute ~ updateRoute ~ deleteRoute ~ addRoute ~ findByTags ~ readRouteForNestedResource
-
 
   // Path is required for swagger to read the correct route
   @Path("/id/{petId}")
-  @ApiOperation(value = "Find a pet by ID", notes = "Returns a pet based on ID", httpMethod = "GET", response = classOf[Pet])
+  @ApiOperation(value = "Find a pet by ID",
+    notes = "Returns a pet based on ID",
+    httpMethod = "GET",
+    response = classOf[Pet])
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "petId", value = "ID of pet that needs to be fetched", required = true, dataType = "integer", paramType = "path")
+    new ApiImplicitParam(name = "petId",
+      value = "ID of pet that needs to be fetched",
+      required = true,
+      dataType = "integer",
+      paramType = "path")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Pet not found"),
@@ -43,12 +46,26 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/update/{petId}")
-  @ApiOperation(value = "Updates a pet in the store with form data.", notes = "", nickname = "updatePetWithForm", httpMethod = "POST")
+  @Path("/update/{petId}") // Path is required for swagger to read the correct route
+  @ApiOperation(value = "Updates a pet in the store with form data.",
+    notes = "",
+    nickname = "updatePetWithForm",
+    httpMethod = "POST")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "petId", value = "ID of pet that needs to be updated", required = true, dataType = "string", paramType = "path"),
-    new ApiImplicitParam(name = "name", value = "Updated name of the pet.", required = false, dataType = "string", paramType = "form"),
-    new ApiImplicitParam(name = "status", value = "Updated status of the pet.", required = false, dataType = "string", paramType = "form")
+    new ApiImplicitParam(name = "petId",
+      value = "ID of pet that needs to be updated",
+      required = true, dataType = "string",
+      paramType = "path"),
+    new ApiImplicitParam(name = "name",
+      value = "Updated name of the pet.",
+      required = false,
+      dataType = "string",
+      paramType = "form"),
+    new ApiImplicitParam(name = "status",
+      value = "Updated status of the pet.",
+      required = false,
+      dataType = "string",
+      paramType = "form")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Dictionary does not exist."),
@@ -63,14 +80,21 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/delete/{petId}")
-  @ApiOperation(value = "Deletes a pet", nickname = "deletePet", httpMethod = "DELETE", produces="application/json")
+  @Path("/delete/{petId}") // Path is required for swagger to read the correct route
+  @ApiOperation(value = "Deletes a pet",
+    nickname = "deletePet",
+    httpMethod = "DELETE",
+    produces="application/json")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "petId", value = "Pet id to delete", required = true, dataType = "integer", paramType = "path")
+    new ApiImplicitParam(name = "petId",
+      value = "Pet id to delete",
+      required = true,
+      dataType = "integer",
+      paramType = "path")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "Invalid pet value", response = classOf[String]),
-  new ApiResponse(code = 200, message = "OK", response= classOf[DeleteResponse])
+    new ApiResponse(code = 200, message = "OK", response= classOf[DeleteResponse])
   ))
   def deleteRoute = delete {
     path("delete" / IntNumber) {
@@ -79,10 +103,18 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/new")
-  @ApiOperation(value = "Add a new pet to the store", nickname = "addPet", httpMethod = "POST", consumes="application/json", produces="application/json")
+  @Path("/new") // Path is required for swagger to read the correct route
+  @ApiOperation(value = "Add a new pet to the store",
+    nickname = "addPet",
+    httpMethod = "POST",
+    consumes="application/json",
+    produces="application/json")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "body", value = "Pet object that needs to be added to the store", dataType = "application/json", required = true, paramType = "body")
+    new ApiImplicitParam(name = "body",
+      value = "Pet object that needs to be added to the store",
+      dataType = "application/json",
+      required = true,
+      paramType = "body")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 405, message = "Invalid input"),
@@ -96,7 +128,7 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/findByTags")
+  @Path("/findByTags") // Path is required for swagger to read the correct route
   @ApiOperation(value = "Find Pets by Tags", httpMethod = "GET", nickname = "findPetsByTags")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(name = "petId", value = "Tags to filter by", required = true, dataType = "string", paramType = "query", allowMultiple = true)
@@ -112,11 +144,21 @@ trait PetHttpService extends HttpService {
     }
   }
 
-  @Path("/friends/{petId}/{friendId}")
-  @ApiOperation(value = "Find Pet's friend by friendId", httpMethod = "GET", nickname = "findPetsFriendById")
+  @Path("/friends/{petId}/{friendId}") // Path is required for swagger to read the correct route
+  @ApiOperation(value = "Find Pet's friend by friendId",
+    httpMethod = "GET",
+    nickname = "findPetsFriendById")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "petId", value = "Pet id of the pet whose friend needs to be fetched", required = true, dataType = "string", paramType = "path"),
-    new ApiImplicitParam(name = "friendId", value = "Id of the friend that needs to be fetched", required = true, dataType = "string", paramType = "path")
+    new ApiImplicitParam(name = "petId",
+      value = "Pet id of the pet whose friend needs to be fetched",
+      required = true,
+      dataType = "string",
+      paramType = "path"),
+    new ApiImplicitParam(name = "friendId",
+      value = "Id of the friend that needs to be fetched",
+      required = true,
+      dataType = "string",
+      paramType = "path")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 200, message = "OK", response = classOf[Pet])

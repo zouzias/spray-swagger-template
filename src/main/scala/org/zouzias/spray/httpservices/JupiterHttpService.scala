@@ -2,8 +2,6 @@ package org.zouzias.spray.httpservices
 
 import javax.ws.rs.Path
 
-import javax.ws.rs.Path
-
 import com.wordnik.swagger.annotations._
 import spray.routing.HttpService
 
@@ -14,9 +12,18 @@ trait JupiterHttpService extends HttpService{
   val routes = hi ~ hello
 
   @Path("/hi/{name}") // Path is required for swagger scanning
-  @ApiOperation(value = "Return hello from Jupiter", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "jupiter",  httpMethod = "GET")
+  @ApiOperation(value = "Return hello from Jupiter",
+    notes = "",
+    response=classOf[String],
+    produces="text/plain; charset=UTF-8",
+    nickname = "jupiter",
+    httpMethod = "GET")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "name", value = "Name of astronaut", required = true, dataType = "string", paramType = "path")
+    new ApiImplicitParam( name = "name",
+      value = "Name of astronaut",
+      required = true,
+      dataType = "string",
+      paramType = "path")
   ))
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Jupiter cannot say hello.")
@@ -30,7 +37,12 @@ trait JupiterHttpService extends HttpService{
   }
 
   @Path("/hello") // Path is required for swagger scanning
-  @ApiOperation(value = "Return hello from Jupiter again", notes = "", response=classOf[String], produces="text/plain; charset=UTF-8", nickname = "jupiter", httpMethod = "GET")
+  @ApiOperation(value = "Return hello from Jupiter again",
+    notes = "",
+    response=classOf[String],
+    produces="text/plain; charset=UTF-8",
+    nickname = "jupiter",
+    httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 404, message = "Jupiter cannot say hello.")
   ))

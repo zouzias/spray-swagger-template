@@ -28,7 +28,7 @@ object Boot extends App with SimpleRoutingApp{
       pathPrefix("jupiter") { ctx => jupiter ! ctx } ~
       pathPrefix("mars") { ctx => mars ! ctx } ~
       pathPrefix("pet") {ctx => pet ! ctx} ~
-      { ctx => swagger ! ctx } /* Last is the swagger API */
+      { ctx => swagger ! ctx } /* Last is the swagger API actor*/
   }
 
 }
