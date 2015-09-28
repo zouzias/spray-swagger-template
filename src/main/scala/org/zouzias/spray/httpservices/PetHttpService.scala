@@ -13,9 +13,6 @@ import org.zouzias.spray.models.responses.UpdateResponseProtocol._
 import spray.httpx.SprayJsonSupport._
 
 
-// These two are required for marshalling and unmarshalling case classes
-import spray.httpx.unmarshalling._
-import spray.httpx.marshalling._
 
 @Api(value = "/pet", description = "Operations about pets.", position = 0)
 trait PetHttpService extends HttpService {
